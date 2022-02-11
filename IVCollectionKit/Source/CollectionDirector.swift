@@ -252,7 +252,9 @@ extension CollectionDirector: UICollectionViewDataSource {
     open func collectionView(_ collectionView: UICollectionView,
                              cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let item = section(for: indexPath.section).item(for: indexPath.row)
+        guard let item = section(for: indexPath.section).item(for: indexPath.row) else {
+            fatalError("Failed to retrieve item for indexPath \(indexPath.description)")
+        }
         if shouldUseAutomaticViewRegistration {
             viewsRegisterer.registerCellIfNeeded(reuseIdentifier: item.reuseIdentifier, cellClass: item.cellType)
         }
@@ -333,7 +335,9 @@ extension CollectionDirector : UICollectionViewDelegateFlowLayout {
         let boundingHeight = collectionView.bounds.height - insets.top - insets.bottom
         let boundingSize = CGSize(width: boundingWidth, height: boundingHeight)
         
-        var size = section.sizeForItem(at: indexPath, boundingSize: boundingSize)
+        guard var size = section.sizeForItem(at: indexPath, boundingSize: boundingSize) else {
+            fatalError("Failed to retrieve size for item at indexPath \(indexPath.description)")
+        }
         
         let sectionInsets = section.insetForSection
         if adjustsWidth {

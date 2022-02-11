@@ -22,7 +22,7 @@ public protocol AbstractCollectionSection {
     
     //datasource methods
     func numberOfItems() -> Int
-    func item(for index: Int) -> AbstractCollectionItem
+    func item(for index: Int) -> AbstractCollectionItem?
     
     //delegate methods
     func willDisplayItem(at indexPath: IndexPath, cell: UICollectionViewCell)
@@ -32,7 +32,7 @@ public protocol AbstractCollectionSection {
     func shouldHighlightItem(at indexPath: IndexPath) -> Bool
     func didHighlightItem(at indexPath: IndexPath)
     func didUnhighlightItem(at indexPath: IndexPath)
-    func sizeForItem(at indexPath: IndexPath, boundingSize: CGSize) -> CGSize
+    func sizeForItem(at indexPath: IndexPath, boundingSize: CGSize) -> CGSize?
     
     func itemAdjustsWidth(at index: Int) -> Bool
     func itemAdjustsHeight(at index: Int) -> Bool

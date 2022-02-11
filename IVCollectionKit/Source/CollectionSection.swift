@@ -28,7 +28,8 @@ open class CollectionSection : AbstractCollectionSection {
         self.identifier = id
     }
     
-    open func item(for index: Int) -> AbstractCollectionItem {
+    open func item(for index: Int) -> AbstractCollectionItem? {
+        guard (.zero ..< items.count).contains(index) else { return nil }
         return items[index]
     }
     
@@ -53,35 +54,35 @@ open class CollectionSection : AbstractCollectionSection {
     }
     
     open func willDisplayItem(at indexPath: IndexPath, cell: UICollectionViewCell) {
-        items[indexPath.item].onDisplay?(indexPath, cell)
+        item(for: indexPath.item)?.onDisplay?(indexPath, cell)
     }
     
     open func didEndDisplayingItem(at indexPath: IndexPath, cell: UICollectionViewCell) {
-         items[indexPath.item].onEndDisplay?(indexPath, cell)
+         item(for: indexPath.item)?.onEndDisplay?(indexPath, cell)
     }
     
     open func didSelectItem(at indexPath: IndexPath) {
-         items[indexPath.item].onSelect?(indexPath)
+         item(for: indexPath.item)?.onSelect?(indexPath)
     }
     
     open func didDeselectItem(at indexPath: IndexPath) {
-        items[indexPath.item].onDeselect?(indexPath)
+        item(for: indexPath.item)?.onDeselect?(indexPath)
     }
     
     open func shouldHighlightItem(at indexPath: IndexPath) -> Bool {
-        return items[indexPath.item].shouldHighlight ?? true
+        item(for: indexPath.item)?.shouldHighlight ?? true
     }
     
     open func didHighlightItem(at indexPath: IndexPath) {
-         items[indexPath.item].onHighlight?(indexPath)
+         item(for: indexPath.item)?.onHighlight?(indexPath)
     }
     
     open func didUnhighlightItem(at indexPath: IndexPath) {
-         items[indexPath.item].onUnighlight?(indexPath)
+         item(for: indexPath.item)?.onUnighlight?(indexPath)
     }
     
-    open func sizeForItem(at indexPath: IndexPath, boundingSize: CGSize) -> CGSize {
-        return items[indexPath.item].estimatedSize(boundingSize: boundingSize)
+    open func sizeForItem(at indexPath: IndexPath, boundingSize: CGSize) -> CGSize? {
+        return item(for: indexPath.item)?.estimatedSize(boundingSize: boundingSize)
     }
     
     open func itemAdjustsWidth(at index: Int) -> Bool {
