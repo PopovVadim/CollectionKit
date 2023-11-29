@@ -28,7 +28,7 @@ final class MenuViewController: CollectionViewController {
         
         let s1 = CollectionSection(items: [cells, social, filter])
         s1.lineSpacing = 1
-        s1.headerItem = CollectionHeaderFooterView<CollectionHeader>(item: "Complex", kind: UICollectionView.elementKindSectionHeader)
+        s1.headerItem = CollectionSupplementaryView<CollectionHeader>(item: "Complex", kind: UICollectionView.elementKindSectionHeader)
         s1.insetForSection = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         director += s1
         
@@ -38,12 +38,12 @@ final class MenuViewController: CollectionViewController {
         }
         
         let s2 = CollectionSection(items: [photos])
-        s2.headerItem = CollectionHeaderFooterView<CollectionHeader>(item: "custom section", kind: UICollectionView.elementKindSectionHeader)
+        s2.headerItem = CollectionSupplementaryView<CollectionHeader>(item: "custom section", kind: UICollectionView.elementKindSectionHeader)
         s2.insetForSection = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         director += s2
         
         let s3 = CollectionSection(items: [photos])
-        s3.headerItem = CollectionHeaderFooterView<CollectionHeader>(item: "custom layout", kind: UICollectionView.elementKindSectionHeader)
+        s3.headerItem = CollectionSupplementaryView<CollectionHeader>(item: "custom layout", kind: UICollectionView.elementKindSectionHeader)
         s3.insetForSection = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         director += s3
         

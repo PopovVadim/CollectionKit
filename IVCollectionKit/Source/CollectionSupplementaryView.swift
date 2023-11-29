@@ -1,5 +1,5 @@
 //
-//  CollectionHeaderFooterView.swift
+//  CollectionSupplementaryView.swift
 //  CollectionKit
 //
 //  Created by Igor Vedeneev on 25.10.17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class CollectionHeaderFooterView<ViewType: ConfigurableCollectionItem>: AbstractCollectionHeaderFooterItem where ViewType: UICollectionReusableView {
+open class CollectionSupplementaryView<ViewType: ConfigurableCollectionItem>: AbstractCollectionHeaderFooterItem where ViewType: UICollectionReusableView {
     public let kind: String
     public var viewType: AnyClass { return ViewType.self }
     public var indexPath: String?

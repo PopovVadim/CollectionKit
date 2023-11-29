@@ -15,6 +15,7 @@ public protocol AbstractCollectionSection {
     
     var headerItem: AbstractCollectionHeaderFooterItem? { get set }
     var footerItem: AbstractCollectionHeaderFooterItem? { get set }
+    var supplementaryItems: [String: AbstractCollectionHeaderFooterItem] { get set }
     
     var insetForSection: UIEdgeInsets { get set }
     var minimumInterItemSpacing: CGFloat { get set }

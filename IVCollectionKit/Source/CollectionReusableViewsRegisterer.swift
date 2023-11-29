@@ -15,6 +15,7 @@ final class CollectionReusableViewsRegisterer {
     private var cellReuseIdentifiers: Set<String> = []
     private var headersReuseIdentifiers: Set<String> = []
     private var footersReuseIdentifiers: Set<String> = []
+    private var supplementaryReuseIdentifiers: Set<String> = []
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -36,6 +37,19 @@ final class CollectionReusableViewsRegisterer {
             headersReuseIdentifiers.insert(reuseIdentifier)
         } else if kind == UICollectionView.elementKindSectionFooter && !footersReuseIdentifiers.contains(reuseIdentifier) {
             footersReuseIdentifiers.insert(reuseIdentifier)
+        }
+
+        let bundle = Bundle(for: viewClass)
+        if let _ = bundle.path(forResource: reuseIdentifier, ofType: "nib") {
+            collectionView?.register(UINib(nibName: reuseIdentifier, bundle: bundle), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
+        } else {
+            collectionView?.register(viewClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
+        }
+    }
+    
+    func registerSupplementaryViewIfNeeded(reuseIdentifier: String, viewClass: AnyClass, kind: String) {
+        if !supplementaryReuseIdentifiers.contains(reuseIdentifier) {
+            supplementaryReuseIdentifiers.insert(reuseIdentifier)
         }
 
         let bundle = Bundle(for: viewClass)

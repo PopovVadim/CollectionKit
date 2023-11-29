@@ -267,6 +267,15 @@ extension CollectionDirector: UICollectionViewDataSource {
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let section = self.section(for: indexPath.section)
 
+        if let item = section.supplementaryItems[kind] {
+            if shouldUseAutomaticViewRegistration {
+                viewsRegisterer.registerSupplementaryViewIfNeeded(reuseIdentifier: item.reuseIdentifier, viewClass: item.viewType, kind: kind)
+            }
+            let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: item.reuseIdentifier, for: indexPath)
+            item.configure(supplementaryView)
+            return supplementaryView
+        }
+        
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let header = section.headerItem else { return UICollectionReusableView() }
@@ -387,13 +396,16 @@ extension CollectionDirector : UICollectionViewDelegateFlowLayout {
                              at indexPath: IndexPath)
     {
         guard sections.count > indexPath.section else { return }
-        
+        let section = sections[indexPath.section]
+        if let supplementaryItem = section.supplementaryItems[elementKind] {
+            supplementaryItem.onDisplay?()
+        }
         switch elementKind {
         case UICollectionView.elementKindSectionHeader:
-            sections[indexPath.section].headerItem?.onDisplay?()
+            section.headerItem?.onDisplay?()
             break
         case UICollectionView.elementKindSectionFooter:
-            sections[indexPath.section].footerItem?.onDisplay?()
+            section.footerItem?.onDisplay?()
             break
         default:
             break
@@ -409,13 +421,16 @@ extension CollectionDirector : UICollectionViewDelegateFlowLayout {
                              at indexPath: IndexPath)
     {
         guard sections.count > indexPath.section else { return }
-        
+        let section = sections[indexPath.section]
+        if let supplementaryItem = section.supplementaryItems[elementKind] {
+            supplementaryItem.onEndDisplay?()
+        }
         switch elementKind {
         case UICollectionView.elementKindSectionHeader:
-            sections[indexPath.section].headerItem?.onEndDisplay?()
+            section.headerItem?.onEndDisplay?()
             break
         case UICollectionView.elementKindSectionFooter:
-            sections[indexPath.section].footerItem?.onEndDisplay?()
+            section.footerItem?.onEndDisplay?()
             break
         default:
             break

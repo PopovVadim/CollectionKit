@@ -18,6 +18,7 @@ open class CollectionSection : AbstractCollectionSection {
     open var items: [AbstractCollectionItem] = []
     open var headerItem: AbstractCollectionHeaderFooterItem?
     open var footerItem: AbstractCollectionHeaderFooterItem?
+    open var supplementaryItems: [String: AbstractCollectionHeaderFooterItem]
     
     open var insetForSection: UIEdgeInsets = .zero
     open var minimumInterItemSpacing: CGFloat = .leastNormalMagnitude
@@ -26,6 +27,7 @@ open class CollectionSection : AbstractCollectionSection {
     public init(id: String = UUID().uuidString, items: [AbstractCollectionItem] = []) {
         self.items = items
         self.identifier = id
+        self.supplementaryItems = [:]
     }
     
     open func item(for index: Int) -> AbstractCollectionItem? {

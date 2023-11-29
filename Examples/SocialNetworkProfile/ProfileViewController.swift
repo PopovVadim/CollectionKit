@@ -58,7 +58,7 @@ final class ProfileViewController: CollectionViewController {
             friendSection += friends.map(CollectionItem<FriendCell>.init)
             
             let buttonVm = ButtonViewModel(icon: nil, title: "See All", handler: { print("yezzzzzzzzz") })
-            friendSection.footerItem = CollectionHeaderFooterView<ButtonFooter>(item: buttonVm, kind: UICollectionView.elementKindSectionFooter)
+            friendSection.footerItem = CollectionSupplementaryView<ButtonFooter>(item: buttonVm, kind: UICollectionView.elementKindSectionFooter)
             director += friendSection
         }
         
