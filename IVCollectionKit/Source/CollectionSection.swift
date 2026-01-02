@@ -31,7 +31,7 @@ open class CollectionSection : AbstractCollectionSection {
     }
     
     open func item(for index: Int) -> AbstractCollectionItem? {
-        guard (.zero ..< items.count).contains(index) else { return nil }
+        guard items.indices.contains(index) else { return nil }
         return items[index]
     }
     
@@ -88,12 +88,12 @@ open class CollectionSection : AbstractCollectionSection {
     }
     
     open func itemAdjustsWidth(at index: Int) -> Bool {
-        guard !isEmpty else { return false }
+        guard items.indices.contains(index) else { return false }
         return items[index].adjustsWidth
     }
-    
+
     open func itemAdjustsHeight(at index: Int) -> Bool {
-        guard !isEmpty else { return false }
+        guard items.indices.contains(index) else { return false }
         return items[index].adjustsHeight
     }
 }
