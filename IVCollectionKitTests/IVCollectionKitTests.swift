@@ -11,7 +11,7 @@ import XCTest
 
 class IVTestCase: XCTestCase {
     let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: UICollectionViewFlowLayout())
-    lazy var director = CollectionDirector(colletionView: collectionView)
+    lazy var director = CollectionDirector(collectionView: collectionView)
     
     override func tearDown() {
         director.removeAll()
@@ -28,7 +28,7 @@ class IVTestCase: XCTestCase {
 class IVCollectionKitTests: IVTestCase {
     
 //    let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: UICollectionViewFlowLayout())
-//    lazy var director = CollectionDirector(colletionView: collectionView)
+//    lazy var director = CollectionDirector(collectionView: collectionView)
     
     override func setUp() {
         super.setUp()
@@ -45,7 +45,7 @@ class IVCollectionKitTests: IVTestCase {
 ////        self.director.
 //        
 //        let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: UICollectionViewFlowLayout())
-//        let director = CollectionDirector(colletionView: collectionView)
+//        let director = CollectionDirector(collectionView: collectionView)
 //        
 //        let section1 = CollectionSection()
 //        director += section1

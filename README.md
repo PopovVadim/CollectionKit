@@ -20,6 +20,31 @@ Development still in progress. Some changes may affect backward compatibility
  - [x] Register cells and reusable views automatically
  - [x] Fix scroll indicator clipping at iOS11 (http://www.openradar.me/34308893)
 
+# Installation
+
+## Swift Package Manager
+
+You can install IVCollectionKit using Swift Package Manager by adding it to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ivedeneev/CollectionKit.git", from: "0.9.11")
+]
+```
+
+Or add it directly in Xcode:
+1. File > Add Package Dependencies
+2. Enter the repository URL: `https://github.com/ivedeneev/CollectionKit.git`
+3. Select version 0.9.11 or later
+
+## CocoaPods
+
+Add the following line to your Podfile:
+
+```ruby
+pod 'IVCollectionKit'
+```
+
 # Getting Started
 
 Key concepts of `CollectionKit` are `Section`, `Item` and `Director`. 
@@ -33,8 +58,8 @@ Setup UICollectionView and director:
 
  Setup collection view
  ```swift
-collectionView = UICollectionView(frame: view.bounds, colletionViewLayout: UICollectionViewFlowLayout())
-collectionDirector = CollectionDirector(colletionView: collectionView)
+collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+collectionDirector = CollectionDirector(collectionView: collectionView)
  ```
 
  Create items

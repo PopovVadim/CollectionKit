@@ -171,6 +171,12 @@ public final class Heckel<T: DiffAware> {
                 return
             }
             let indexOfOld = entry.indexesInOld.removeFirst()
+
+            // Bounds checking to prevent crashes
+            guard oldArray.indices.contains(indexOfOld) else {
+                return
+            }
+
             let isObservation1 = entry.newCounter == .one && entry.oldCounter == .one
             let isObservation2 = entry.newCounter != .zero && entry.oldCounter != .zero && newArray[indexOfNew] == oldArray[indexOfOld]
             guard isObservation1 || isObservation2 else {
@@ -229,12 +235,16 @@ public final class Heckel<T: DiffAware> {
       var runningOffset = 0
 
       oldArray.enumerated().forEach { oldTuple in
+        // Bounds checking to prevent crashes
+        guard oldTuple.offset < deleteOffsets.count else { return }
         deleteOffsets[oldTuple.offset] = runningOffset
 
         guard case .tableEntry = oldTuple.element else {
           return
         }
 
+        // Bounds check for old array access
+        guard oldTuple.offset < old.count else { return }
         changes.append(.delete(Delete(
           item: old[oldTuple.offset],
           index: oldTuple.offset
@@ -252,11 +262,20 @@ public final class Heckel<T: DiffAware> {
         switch newTuple.element {
         case .tableEntry:
           runningOffset += 1
+          // Bounds check for new array access
+          guard newTuple.offset < new.count else { return }
           changes.append(.insert(Insert(
             item: new[newTuple.offset],
             index: newTuple.offset
           )))
         case .indexInOther(let oldIndex):
+          // Bounds checking to prevent crashes
+          guard old.indices.contains(oldIndex),
+                oldIndex < deleteOffsets.count,
+                newTuple.offset < new.count else {
+            return
+          }
+
           if !isEqual(oldItem: old[oldIndex], newItem: new[newTuple.offset]) {
             changes.append(.replace(Replace(
               oldItem: old[oldIndex],
